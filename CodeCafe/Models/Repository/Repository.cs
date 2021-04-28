@@ -2,46 +2,60 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using CodeCafe.Models.ViewModels;
 
 namespace CodeCafe.Models.RepositoriesAndUnits
 {
-	public class Repository<T> : IRepository<T> where T : class
-	{
-		protected CafeContext contxt { get; set; }
-		private DbSet<T> setDatabase { get; set; }
+    public class Repository<T> : IRepository<T> where T : class
+    {
+        protected CafeContext context { get; set; }
+        private DbSet<T> setDatabase { get; set; }
 
-		public Repository(CafeContext ctx)
-		{
-			contxt = ctx;
-			setDatabase = contxt.Set<T>();
-		}
+        public Repository(CafeContext ctx)
+        {
+            context = ctx;
+            setDatabase = context.Set<T>();
+        }
 
-		//Used to Query (and eventually output) the data
-		public virtual IEnumerable<T> List(Querying<T> options)
-		{
-			IQueryable<T> query = setDatabase;
+        // used to query data and output later
+        public virtual IEnumerable<T> List(Querying<T> options)
+        {
+            IQueryable<T> query = setDatabase;
+            return query.ToList();
+        }
 
-			foreach (string values in options.GetValues())
-			{
-				query = query.Include(values);
-			}
+        // used to find/change/save data
+        public virtual T Get(int id) => setDatabase.Find(id);
+        public virtual T Get(Querying<T> options)
+        {
+            IQueryable<T> query = BuildQuery(options);
+            return query.FirstOrDefault();
+        }
+        public virtual void Insert(T entity) => setDatabase.Add(entity);
+        public virtual void Delete(T entity) => setDatabase.Remove(entity);
+        public virtual void Update(T entity) => setDatabase.Update(entity);
+        public virtual void Save() => context.SaveChanges();
 
-			if (options.HasWhere)
-			{
-				query = query.Where(options.Where);
-			}
-			if (options.HasOrderBy)
-			{
-				query = query.OrderBy(options.OrderBy);
-			}
-			return query.ToList();
-		}
+        private IQueryable<T> BuildQuery(Querying<T> options)
+        {
+            IQueryable<T> query = setDatabase;
+            foreach (string values in options.GetValues())
+            {
+                query = query.Include(values);
+            }
+            if (options.HasWhere)
+            {
+                foreach (var condition in options.WhereConditions)
+                {
+                    query = query.Where(condition);
+                }
+            }
+            if (options.HasOrderBy)
+            {
+                query = query.OrderBy(options.OrderBy);
+            }
 
-		//Used to find, modify, and save the data when needed.
-		public virtual T Get(int id) => setDatabase.Find(id);
-		public virtual void Insert(T entity) => setDatabase.Add(entity);
-		public virtual void Delete(T entity) => setDatabase.Remove(entity);
-		public virtual void Update(T entity) => setDatabase.Update(entity);
-		public virtual void Save() => contxt.SaveChanges();
-	}
+            return query;
+        }
+    }
 }

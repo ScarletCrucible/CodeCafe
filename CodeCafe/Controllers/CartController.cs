@@ -2,15 +2,110 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using CodeCafe.Models;
+using CodeCafe.Models.RepositoriesAndUnits;
+using CodeCafe.Models.DTO;
 
 namespace CodeCafe.Controllers
 {
     public class CartController : Controller
     {
-        public IActionResult Index()
+        private IRepository<Product> productInfo { get; set; }
+        public CartController(IRepository<Product> rep) => productInfo = rep;   // loosely coupled injection of a repository object
+
+        private Cart GetSessionOrCookieCart()
         {
-            return View();
+            var cart = new Cart(HttpContext);
+            cart.Load((Repository<Product>)productInfo);
+            return (cart);
         }
+        [HttpPost]
+        public RedirectToActionResult Add(int id)
+        {
+            // gets the book from the database
+            var product = productInfo.Get(new Querying<Product>
+            {
+                Value = "OrderItems.Product",
+                Where = p => p.ProductId == id
+            });
+
+            if (product == null)    // error if book not found
+            {
+                TempData["message"] = "Book not able to be added to cart.";
+            }
+            else
+            {
+                var productdto = new ProductDTO();  // transfer object of a product database
+                productdto.Load(product);
+
+                // initialized product with a transfer object, default quantity = 1
+                CartItem item = new CartItem
+                {
+                    Product = productdto,
+                    Quantity = 1
+                };
+
+                TempData["message"] = "Added to cart!";
+
+                Cart cart = GetSessionOrCookieCart(); // get cart object
+                cart.Add(item); // adds item to session state
+                cart.Save();
+            }
+            // redirects to index page of product controller
+            return RedirectToAction("Index", "Product");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Cart cart = GetSessionOrCookieCart();   // get cart object
+            CartItem item = cart.GetById(id);   // check cart item for product id
+            if (item == null)   // error if not exist
+            {
+                TempData["message"] = "Unable to edit the item.";
+                return RedirectToAction("Index", "Product");
+            }
+            else
+            {
+                return View(item);  // returns the searched for item
+            }
+        }
+        [HttpPost]
+        public RedirectToActionResult Edit(CartItem item)
+        {
+            TempData["message"] = "Item in cart has been updated";
+
+            Cart cart = GetSessionOrCookieCart();   // gets cart object
+            cart.Edit(item);    // edit item
+            cart.Save();
+
+            return RedirectToAction("Index", "Product");
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Remove(int id)
+        {
+            TempData["message"] = "Item removed from cart";
+
+            Cart cart = GetSessionOrCookieCart();
+            CartItem item = cart.GetById(id);
+            cart.Remove(item);  // removes item id from cart
+            cart.Save();
+
+            return RedirectToAction("Index", "Product");
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Clear()
+        {
+            TempData["message"] = "Cart has been cleared";
+
+            Cart cart = GetSessionOrCookieCart();
+            cart.Clear();   // cleared cart after getting cart object
+            cart.Save();
+
+            return RedirectToAction("Index", "Product");
+        }
+
+        public ViewResult Checkout() => View(); // checkout view so form can be added
     }
 }

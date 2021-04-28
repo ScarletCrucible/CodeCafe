@@ -6,23 +6,35 @@ using System.Linq.Expressions;
 
 namespace CodeCafe.Models
 {
-	public class Querying<T>
-	{
-		//Used to sort the data on the page. 
-		public Expression<Func<T, Object>> OrderBy { get; set; }
-		public Expression<Func<T, bool>> Where { get; set; }
+    public class WhereConditions<T> : List<Expression<Func<T, bool>>> { }
+    public class Querying<T>
+    {
+        // used to sort data displayed 
+        public Expression<Func<T, Object>> OrderBy { get; set; }
+        public WhereConditions<T> WhereConditions { get; set; }
+        public Expression<Func<T, bool>> Where
+        {
+            set
+            {
+                if (WhereConditions == null)
+                {
+                    WhereConditions = new WhereConditions<T>();
+                }
+                WhereConditions.Add(value);
+            }
+        }
 
-		private string[] valueArray;
-		//Splits the data called by the query
-		public string Value
-		{
-			set => valueArray = value.Replace(" ", "").Split('-');
-		}
+        private string[] valueArray;
+        // splits up the data called by the query
+        public string Value
+        {
+            set => valueArray = value.Replace(" ", "").Split('-');
+        }
 
-		public string[] GetValues() => valueArray ?? new string[0];
+        public string[] GetValues() => valueArray ?? new string[0];
 
-		//Scans to check for null values in values.
-		public bool HasWhere => Where != null;
-		public bool HasOrderBy => OrderBy != null;
-	}
+        // scans that check for null values
+        public bool HasWhere => WhereConditions != null;
+        public bool HasOrderBy => OrderBy != null;
+    }
 }
