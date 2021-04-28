@@ -21,7 +21,11 @@ Bootstrap
 ## NuGet Packages
 *These come installed with the project when you download from GitHub
 Microsoft.AspNetCore.Identity.EntityFrameWorkCore 5.0.5
+
 Microsoft.AspNetCore.Mvc.NetwtonsoftJson 5.0.5
+
 Microsoft.EntityFrameWorkCore.SqlServer 5.0.5
+
 Microsoft.EntityFrameworkCore.Tools 5.0.5
+
 Microsoft.VisualStudio.Web.CodeGeneration.Design 5.0.2
