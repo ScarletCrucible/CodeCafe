@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeCafe.Models;
-using CodeCafe.Models.RepositoriesAndUnits;
+using CodeCafe.Models.Repository;
 
 namespace CodeCafe.Controllers
 {
     public class ProductController : Controller
     {
-        private IRepository<Product> productInfo { get; set; }
-        public ProductController(IRepository<Product> rep) => productInfo = rep;
+        //Uses the CafeUnitOfWork class to get items from the database
+        private CafeUnitOfWork productInfo { get; set; }
+        public ProductController(CafeContext ctx) => productInfo = new CafeUnitOfWork(ctx);
         public ViewResult Index()
         {
             var plvm = new ProductListViewModel
             {
-                Products = productInfo.List(new Querying<Product>
+                Products = productInfo.Products.List(new Querying<Product>
                 {
                     OrderBy = p => p.ProductName
                 })
