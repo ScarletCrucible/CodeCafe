@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CodeCafe.Models
 {
-	public class Order
+	public class Product
 	{
 		public int ProductId { get; set; }
 		public string ProductName { get; set; }

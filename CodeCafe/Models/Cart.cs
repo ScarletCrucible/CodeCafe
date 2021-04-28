@@ -10,8 +10,9 @@ namespace CodeCafe.Models
 {
 	public class Cart
 	{
+		//Private properties/objects
 		private const string CartKey = "userCart";
-		private const string CountKey = "userCount";	//Display how many items are in the cart. 
+		private const string CountKey = "userCount";    //Display how many items are in the cart. 
 
 		//List of cart items
 		private List<CartItem> items { get; set; }
@@ -22,6 +23,10 @@ namespace CodeCafe.Models
 		private IRequestCookieCollection getCookies { get; set; }
 		private IResponseCookies giveCookies { get; set; }
 
+		//public properties/objects
+		public IEnumerable<CartItem> List => items; //Puts the CartItem objects into the List collection
+		public double Subtotal => items.Sum(s => s.Subtotal);   //Adds the subtotal per item in the cart
+
 		//Constructor that sets the private session/cookie properties. 
 		public Cart(HttpContext ctx)
 		{
@@ -30,8 +35,43 @@ namespace CodeCafe.Models
 			giveCookies = ctx.Response.Cookies;
 		}
 
+		//Cart Modifiers
+		public void Add(CartItem item)
+		{
+			var inCart = GetById(item.Product.ProductId);
+			if (inCart == null) //Checks to see if the item is in the cart already
+			{
+				items.Add(item);
+			}
+			else
+			{
+				inCart.Quantity += 1;   //Adds 1 quantity if it exists. 
+			}
+		}
+
+		public void Edit(CartItem item)
+		{
+			var inCart = GetById(item.Product.ProductId);
+			if (inCart != null)
+			{
+				inCart.Quantity = item.Quantity;
+			}
+		}
+
+		public void Remove(CartItem item) => items.Remove(item);
+		public void Clear() => items.Clear();
+
+		public void Save()
+		{
+			session.SetInt32(CountKey, items.Count);    //Sets count for items in cart
+			giveCookies.SetInt32(CountKey, items.Count);    //Sets count in cookies
+
+			session.SetObject<List<CartItem>>(CartKey, items);  //Stores collection of the objects in List
+			giveCookies.SetObject<List<CartItemDTO>>(CartKey, items.ToDTO()); //Also stores in the ToDTO method to keep the users' cart stored over multiple visits
+		}
+
 		//Loads the cart with the session state and/or cookie data. 
-		public void Load(Repository<Order> info)
+		public void Load(Repository<Product> info)
 		{
 			items = session.GetObject<List<CartItem>>(CartKey); //Stores session objects in items. 
 			if (items == null)  //If returns as null, carItems is initialized with the collection of items in persistent cookies. 
@@ -39,29 +79,37 @@ namespace CodeCafe.Models
 				items = new List<CartItem>();
 				cartItems = getCookies.GetObject<List<CartItemDTO>>(CartKey);
 			}
-			/*if (cartItems?.Count > items?.Count)
+			if (cartItems?.Count > items?.Count)
 			{
+				//Gets products from database and checks if it is null. If null, it doesn't get processed. 
 				foreach (CartItemDTO cartItem in cartItems)
 				{
 					var product = info.Get(new Querying<Product>
 					{
+						Value = "OrderItems.Product",
+						Where = p => p.ProductId == cartItem.ProductId
 					});
+					//If not null, a new Product object is created and passed to the ProductDTO
 					if (product != null)
 					{
-						var dto = new ProductDTO();
-						dto.Load(product);
+						var productdto = new ProductDTO();
+						productdto.Load(product);
 
+						//Creates new CartItem by storing the product and the quantity and adding it to the items
 						CartItem item = new CartItem
 						{
-							Product = dto,
+							Product = productdto,
 							Quantity = cartItem.Quantity
 						};
 						items.Add(item);
 					}
 				}
 				Save();
-			}*/
-
+			}
 		}
+		//Returns number of items in the cart using session state, and if it has to, from cookies
+		public int? Count => session.GetInt32(CountKey) ?? getCookies.GetInt32(CountKey);
+		//Gets CartItem whose id matches the argument id 
+		public CartItem GetById(int id) => items.FirstOrDefault(ci => ci.Product.ProductId == id);
 	}
 }

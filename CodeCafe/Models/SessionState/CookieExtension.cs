@@ -43,7 +43,7 @@ namespace CodeCafe.Models.SessionState
 		public static void SetInt32(this IResponseCookies cookies, string key, int value, int days = 15) => cookies.SetString(key, value.ToString(), days);
 
 		//Converts the parameters to a JSON string
-		public static void SetObject(this IResponseCookies cookies, string key, ThreadStaticAttribute value, int days = 15) =>
+		public static void SetObject<T>(this IResponseCookies cookies, string key, T value, int days = 15) =>
 			cookies.SetString(key, JsonConvert.SerializeObject(value), days);
 	}
 }
