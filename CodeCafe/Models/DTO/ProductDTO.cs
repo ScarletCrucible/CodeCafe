@@ -11,6 +11,7 @@ namespace CodeCafe.Models.DTO
 		public string ProductName { get; set; }
 		public double Price { get; set; }
 		public string Description { get; set; }
+		public string Image { get; set; }
 		public Dictionary<int, string> Items { get; set; }
 
 		public void Load(Product product)
