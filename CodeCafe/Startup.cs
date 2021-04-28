@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using CodeCafe.Models;
 
 namespace CodeCafe
 {
@@ -25,12 +27,8 @@ namespace CodeCafe
 		public void ConfigureServices(IServiceCollection services)
 		{
 
-
-			services.AddRouting(options =>
-			{
-				options.LowercaseUrls = true;
-				options.AppendTrailingSlash = true;
-			});
+			services.AddMemoryCache();
+			services.AddSession();
 
 			services.AddControllersWithViews();
 		}
