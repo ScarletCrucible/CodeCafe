@@ -12,7 +12,7 @@ namespace CodeCafe.Models.SessionState
 		public static string GetString(this IRequestCookieCollection cookies, string key) => cookies[key];
 
 		//Converts the string key to an integer and returns true or false based off success of conversion. If false, it returns null. 
-		public static int? GetInt32(this IRequestCookieCollection cookies, string key) => int.TryParse(cookies[key], out int i) ? i : (int?)null;
+		public static int? GetInt32(this IRequestCookieCollection cookies, string key) => int.TryParse(cookies[key], out int i) ? i : (int?) null;
 
 		//Takes in the string key and if it's null it returns as default. Otherwise converts the string value to an object of type T.
 		public static T GetObject<T>(this IRequestCookieCollection cookies, string key)

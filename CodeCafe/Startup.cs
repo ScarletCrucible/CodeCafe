@@ -26,11 +26,24 @@ namespace CodeCafe
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddRouting(options =>
+			{
+				options.LowercaseUrls = true;
+				options.AppendTrailingSlash = true;
+			});
 
 			services.AddMemoryCache();
 			services.AddSession();
 
-			services.AddControllersWithViews();
+			services.AddControllersWithViews().AddNewtonsoftJson();
+
+			/* Enables Dependency Injection 
+			 * Calls AddDbContext metho, creates a DbContext object, and then object is passed, along with other information about the 
+			 * database, to the DbContext class. Also gets the JSON connection string and passes it to the DbContext object. 
+			 * Figure 4-6
+			 */
+			services.AddDbContext<CafeContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("CafeContext")));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
