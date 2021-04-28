@@ -31,7 +31,7 @@ namespace CodeCafe.Models
 		}
 
 		//Loads the cart with the session state and/or cookie data. 
-		public void Load(Repository<Product> info)
+		/*public void Load(Repository<Product> info)
 		{
 			items = session.GetObject<List<CartItem>>(CartKey);	//Stores session objects in items. 
 			if (items == null)	//If returns as null, carItems is initialized with the collection of items in persistent cookies. 
@@ -62,6 +62,6 @@ namespace CodeCafe.Models
 				Save();
 			}
 
-		}
+		}*/
 	}
 }
