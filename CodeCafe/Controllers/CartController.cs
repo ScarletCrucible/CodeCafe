@@ -52,7 +52,7 @@ namespace CodeCafe.Controllers
                 cart.Save();
             }
             // redirects to index page of product controller
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("List", "Product");
         }
 
         public IActionResult Edit(int id)
@@ -62,7 +62,7 @@ namespace CodeCafe.Controllers
             if (item == null)   // error if not exist
             {
                 TempData["message"] = "Unable to edit the item.";
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("List", "Product");
             }
             else
             {
@@ -78,7 +78,7 @@ namespace CodeCafe.Controllers
             cart.Edit(item);    // edit item
             cart.Save();
 
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("List", "Product");
         }
 
         [HttpPost]
@@ -91,7 +91,7 @@ namespace CodeCafe.Controllers
             cart.Remove(item);  // removes item id from cart
             cart.Save();
 
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("List", "Product");
         }
 
         [HttpPost]
@@ -103,7 +103,7 @@ namespace CodeCafe.Controllers
             cart.Clear();   // cleared cart after getting cart object
             cart.Save();
 
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("List", "Product");
         }
 
         public ViewResult Checkout() => View(); // checkout view so form can be added
