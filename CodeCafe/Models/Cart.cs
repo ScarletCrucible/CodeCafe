@@ -31,15 +31,15 @@ namespace CodeCafe.Models
 		}
 
 		//Loads the cart with the session state and/or cookie data. 
-		/*public void Load(Repository<Product> info)
+		public void Load(Repository<Order> info)
 		{
-			items = session.GetObject<List<CartItem>>(CartKey);	//Stores session objects in items. 
-			if (items == null)	//If returns as null, carItems is initialized with the collection of items in persistent cookies. 
+			items = session.GetObject<List<CartItem>>(CartKey); //Stores session objects in items. 
+			if (items == null)  //If returns as null, carItems is initialized with the collection of items in persistent cookies. 
 			{
 				items = new List<CartItem>();
 				cartItems = getCookies.GetObject<List<CartItemDTO>>(CartKey);
 			}
-			if (cartItems?.Count > items?.Count)
+			/*if (cartItems?.Count > items?.Count)
 			{
 				foreach (CartItemDTO cartItem in cartItems)
 				{
@@ -60,8 +60,8 @@ namespace CodeCafe.Models
 					}
 				}
 				Save();
-			}
+			}*/
 
-		}*/
+		}
 	}
 }

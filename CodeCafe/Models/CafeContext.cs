@@ -11,7 +11,7 @@ namespace CodeCafe.Models
 	public class CafeContext : DbContext
 	{
 		public CafeContext(DbContextOptions<CafeContext> options) : base(options) { }
-		public DbSet<Product> Products { get; set; }
+		public DbSet<Order> Products { get; set; }
 		public DbSet<OrderItem> OrderItems { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

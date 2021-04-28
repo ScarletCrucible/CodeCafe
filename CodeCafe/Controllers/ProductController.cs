@@ -9,11 +9,11 @@ namespace CodeCafe.Controllers
 {
     public class ProductController : Controller
     {
-        private Repository<Product> product { get; set; }
-        public ProductController(CafeContext ctx) => product = new Repository<Product>(ctx);
+        private Repository<Order> product { get; set; }
+        public ProductController(CafeContext ctx) => product = new Repository<Order>(ctx);
         public ViewResult Index()
         {
-            var products = product.List(new Querying<Product> { OrderBy = a => a.ProductName });
+            var products = product.List(new Querying<Order> { OrderBy = a => a.ProductName });
 
             return View(products);
         }

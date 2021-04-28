@@ -1,13 +1,67 @@
-﻿<!DOCTYPE html>
+﻿@{
 
+	var current = ViewContext.RouteData.Values["area"]?.ToString() ??
+				  ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+	<link href="~/css/site.css" rel="stylesheet" />
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    @RenderSection("scripts", false)
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+	<div class="container">
+		<a asp-action="Index" asp-controller="Home">
+			<img src="~/images/logo.png" class="img-fluid-block" width="100"/>
+		</a>
+		<nav class="navbar navbar-expand-xl bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+					aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="menu">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item @Nav.Active("Home", current)">
+						<a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
+							<span class="fas fa-home"></span>&nbsp;
+							Home
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item @Nav.Active("Order", current)">
+						<a class="nav-link" asp-action="Index" asp-controller="Order" asp-area="">
+							<span class="fas fa-home"></span>&nbsp;
+							Order
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
+							<span class="fas fa-home"></span>&nbsp;
+							About
+						</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="Contact" asp-area="">
+							<span class="fas fa-home"></span>&nbsp;
+							Contact
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		@RenderBody()
+	</div>
 </body>
 </html>
