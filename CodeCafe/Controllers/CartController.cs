@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeCafe.Controllers
 {
-    public class HomeController : Controller
+    public class CartController : Controller
     {
         public IActionResult Index()
         {
