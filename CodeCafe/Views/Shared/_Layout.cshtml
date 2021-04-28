@@ -21,13 +21,13 @@
 			<img src="~/images/logo.png" class="img-fluid-block" width="100"/>
 		</a>
 		<nav class="navbar navbar-expand-xl bg-dark">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+			<button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#menu"
 					aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item @Nav.Active("Home", current)">
+					<li class="nav-item">
 						<a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
 							<span class="fas fa-home"></span>&nbsp;
 							Home
@@ -35,8 +35,8 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item @Nav.Active("Order", current)">
-						<a class="nav-link" asp-action="Index" asp-controller="Order" asp-area="">
+					<li class="nav-item">
+						<a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
 							<span class="fas fa-home"></span>&nbsp;
 							Order
 						</a>
