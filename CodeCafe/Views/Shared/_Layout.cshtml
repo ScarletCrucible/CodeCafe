@@ -41,41 +41,36 @@
         <a asp-action="Index" asp-controller="Home">
             <img src="~/images/logo.png" class="img-fluid-block" width="100" />
         </a>
-        <nav class="navbar navbar-expand-xl bg-dark">
-            <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#menu"
-                    aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="menu">
-                <ul>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
-                            <span class="fas fa-home"></span>&nbsp;
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
-                            <span class="fas fa-coffee"></span>&nbsp;
-                            Order
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
-                            <span class="fas fa-address-card"></span>&nbsp;
-                            About
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="Contact" asp-area="">
-                            <span class="fas fa-id-card-alt"></span>&nbsp;
-                            Contact
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+		<nav class="navbar navbar-expand-xl bg-dark">
+			<div class="navbar">
+				<ul>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
+							<span class="fas fa-home"></span>&nbsp;
+							Home
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
+							<span class="fas fa-coffee"></span>&nbsp;
+							Order
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
+							<span class="fas fa-address-card"></span>&nbsp;
+							About
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="Contact" asp-area="">
+							<span class="fas fa-id-card-alt"></span>&nbsp;
+							Contact
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
         @RenderBody()
     </div>
