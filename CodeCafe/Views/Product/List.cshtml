@@ -1,6 +1,6 @@
 ﻿@model ProductListViewModel
 
-@{ 
+@{
 	ViewData["Title"] = " | Coffee Menu";
 
 }
@@ -11,15 +11,18 @@
 	<div class="card-deck">
 		@foreach (Product product in Model.Products)
 		{
-			<div class="card">
-				<div class="card-body">
-					<img class="card-img-top" src="@product.Image" alt="Coffee" />
-					<h5 class="card-title">@product.ProductName</h5>
-					<h6 class="card-header">$@product.Price</h6>
-					<p class="card-text">@product.Description</p>
-					<button type="button" class="btn btn-outline-secondary">Add to Cart</button>
+			<form asp-action="Add" asp-controller="Cart" method="post">
+				<div class="card">
+					<img class="card-img-top" />
+					<div class="card-body">
+						<img class="card-img-top" src="@product.Image" alt="Coffee" />
+						<h5 class="card-title">@product.ProductName</h5>
+						<h6 class="card-header">$@product.Price</h6>
+						<p class="card-text">@product.Description</p>
+						<button type="submit" value="@product.ProductId" class="btn btn-outline-secondary">Add to Cart</button>
+					</div>
 				</div>
-			</div>
+			</form>
 		}
 	</div>
 </body>

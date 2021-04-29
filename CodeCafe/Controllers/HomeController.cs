@@ -13,5 +13,13 @@ namespace CodeCafe.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public RedirectToActionResult CheckOut()
+        {
+            TempData["Message"] = "Submitted";
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
