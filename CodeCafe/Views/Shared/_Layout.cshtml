@@ -24,13 +24,17 @@
 </style>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link href="~/css/site.css" rel="stylesheet" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    @RenderSection("scripts", false)
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+	<link href="~/css/site.css" rel="stylesheet" />
+	<link rel="stylesheet"
+		  href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+		  crossorigin="anonymous">
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	@RenderSection("scripts", false)
 </head>
 <body>
     <div class="container">
@@ -53,19 +57,19 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
-                            <span class="fas fa-home"></span>&nbsp;
+                            <span class="fas fa-coffee"></span>&nbsp;
                             Order
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
-                            <span class="fas fa-home"></span>&nbsp;
+                            <span class="fas fa-address-card"></span>&nbsp;
                             About
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-action="Index" asp-controller="Contact" asp-area="">
-                            <span class="fas fa-home"></span>&nbsp;
+                            <span class="fas fa-id-card-alt"></span>&nbsp;
                             Contact
                         </a>
                     </li>
