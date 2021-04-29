@@ -10,14 +10,10 @@
 	<meta name="viewport" content="width=device-width" />
 	<title>@ViewBag.Title</title>
 	<link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet"
-		  href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-		  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-		  crossorigin="anonymous">
 	<link href="~/css/site.css" rel="stylesheet" />
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	@RenderSection("scripts", false)
+    @RenderSection("scripts", false)
 </head>
 <body>
 	<div class="container">
@@ -26,7 +22,7 @@
 		</a>
 		<h1>CODE CAFE</h1>
 		<nav class="navbar navbar-expand-xl bg-dark">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+			<button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#menu"
 					aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -42,7 +38,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
 						<a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
-							
+							<span class="fas fa-home"></span>&nbsp;
 							Order
 						</a>
 					</li>
@@ -50,7 +46,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
 						<a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
-							
+							<span class="fas fa-home"></span>&nbsp;
 							About
 						</a>
 					</li>
@@ -58,7 +54,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
 						<a class="nav-link" asp-action="Index" asp-controller="Contact" asp-area="">
-							
+							<span class="fas fa-home"></span>&nbsp;
 							Contact
 						</a>
 					</li>
