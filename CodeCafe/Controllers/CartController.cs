@@ -46,7 +46,7 @@ namespace CodeCafe.Controllers
 
             if (product == null)    // error if book not found
             {
-                TempData["message"] = "Book not able to be added to cart.";
+                TempData["message"] = "Item not able to be added to cart.";
             }
             else
             {
