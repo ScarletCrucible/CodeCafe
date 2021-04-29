@@ -10,8 +10,8 @@ namespace CodeCafe.Controllers
 {
     public class CartController : Controller
     {
-        private IRepository<Product> productInfo { get; set; }
-        public CartController(IRepository<Product> rep) => productInfo = rep;   // loosely coupled injection of a repository object
+        private Repository<Product> productInfo { get; set; }
+        public CartController(CafeContext ctx) => productInfo = new Repository<Product>(ctx);   //tightly coupled dependency injection of a repository object
 
         private Cart GetSessionOrCookieCart()
         {
@@ -19,6 +19,7 @@ namespace CodeCafe.Controllers
             cart.Load((Repository<Product>)productInfo);
             return (cart);
         }
+
         [HttpPost]
         public RedirectToActionResult Add(int id)
         {
@@ -55,6 +56,7 @@ namespace CodeCafe.Controllers
             return RedirectToAction("List", "Product");
         }
 
+        [Route("Cart/[action]")]
         public IActionResult Edit(int id)
         {
             Cart cart = GetSessionOrCookieCart();   // get cart object
@@ -106,6 +108,10 @@ namespace CodeCafe.Controllers
             return RedirectToAction("List", "Product");
         }
 
-        public ViewResult Checkout() => View(); // checkout view so form can be added
+        [Route("Checkout")]
+        public ViewResult Checkout()
+        {
+            return View();
+        }
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CodeCafe.Controllers
 {
-    public class HomeController : Controller
+    public class ContactController : Controller
     {
-        [Route("/")]
         public IActionResult Index()
         {
             return View();
