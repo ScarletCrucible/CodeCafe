@@ -14,7 +14,7 @@ namespace CodeCafe.Models.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter your name.")]
-        [RegularExpression("[a-zA-Z]+", ErrorMessage = "Can only contain letters.")]
+        [RegularExpression("[a-zA-Z ]+", ErrorMessage = "Can only contain letters.")]
         [StringLength(20, ErrorMessage = "Username cannot be longer than 20 characters.")]
         public string Name { get; set; }
 
