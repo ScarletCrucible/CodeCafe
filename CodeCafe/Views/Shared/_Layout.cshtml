@@ -1,81 +1,77 @@
 ﻿@{
 
-    var current = ViewContext.RouteData.Values["area"]?.ToString() ??
-                  ViewContext.RouteData.Values["controller"]?.ToString();
+	var current = ViewContext.RouteData.Values["area"]?.ToString() ??
+				  ViewContext.RouteData.Values["controller"]?.ToString();
 }
 
 <!DOCTYPE html>
 <style>
 
-    nav ul {
-        padding: 0;
-        display: inline-flex;
-        justify-content: space-between;
-        list-style-type: none;
-        margin-left: auto;
-        margin-right: auto;
-    }
+	nav ul {
+		padding: 0;
+		display: inline-flex;
+		justify-content: space-between;
+		list-style-type: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-    nav li {
-        margin-left: 75px;
-        margin-right: 75px;
-        height: 25px;
-        width: auto;
-    }
+	nav li {
+		margin-left: 75px;
+		margin-right: 75px;
+		height: 25px;
+		width: auto;
+	}
 </style>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-          crossorigin="anonymous">
-    <link href="~/css/site.css" rel="stylesheet" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("scripts", false)
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+	<link href="~/css/site.css" rel="stylesheet" />
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@RenderSection("scripts", false)
 </head>
 <body>
-    <div class="container">
-        <a asp-action="Index" asp-controller="Home">
-            <img src="~/images/logonotext.png" class="img-fluid-block" width="100" />
-        </a>
-        <h1>Code Cafe</h1>
-        <nav class="navbar navbar-expand-xl bg-dark">
-            <div class="navbar">
-                <ul>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
-                            <span class="fas fa-home"></span>&nbsp;
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
-                            <span class="fas fa-coffee"></span>&nbsp;
-                            Order
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
-                            <span class="fas fa-address-card"></span>&nbsp;
-                            About
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index" asp-controller="Cart" asp-area="">
-                            <span class="fas fa-cart-plus"></span>&nbsp;
-                            Cart
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        @RenderBody()
-    </div>
+	<!-- Navigation Bar -->
+	<!-- md = under 768 pixels switches to mobile -->
+	<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" asp-action="Index" asp-controller="Home">
+				<img src="~/images/logonotext.png" width="50" />
+			</a>
+			<button class="navbar-toggler" type="button"
+					data-toggle="collapse" data-target="navbarResponsive">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
+							Home
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="List" asp-controller="Product" asp-area="">
+							Order
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="About" asp-area="">
+							About
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Index" asp-controller="Cart" asp-area="">
+							Cart
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	@RenderBody()
 </body>
 </html>
