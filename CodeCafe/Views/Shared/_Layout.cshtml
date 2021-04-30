@@ -6,6 +6,13 @@
 
 <!DOCTYPE html>
 <style>
+    @@media screen and (max-width: 900px) {
+        nav li {
+            padding: 0px 0px 50px 0px;
+            margin: 0px 0px 0px 0px;
+        }
+    }
+
     nav ul {
         padding: 0;
         display: inline-flex;
@@ -30,6 +37,7 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("scripts", false)
 </head>
 <body>

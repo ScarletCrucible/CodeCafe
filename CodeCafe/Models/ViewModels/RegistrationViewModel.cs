@@ -20,6 +20,7 @@ namespace CodeCafe.Models.ViewModels
 
         [Required(ErrorMessage = "Please enter your phone number.")]
         [StringLength(10, ErrorMessage = "Phone Number must be 10 digits long without dashes.")]
+        [Range(2010000000, 9899999999, ErrorMessage = "Must be 10 digits and be valid US area code.")]
         public int PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter a business hour.")]
