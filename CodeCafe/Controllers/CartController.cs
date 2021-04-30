@@ -5,6 +5,7 @@ using System.Linq;
 using CodeCafe.Models;
 using CodeCafe.Models.RepositoriesAndUnits;
 using CodeCafe.Models.DTO;
+using CodeCafe.Models.ViewModels;
 
 namespace CodeCafe.Controllers
 {
@@ -20,6 +21,19 @@ namespace CodeCafe.Controllers
             return (cart);
         }
 
+        [Route("Cart")]
+        public ViewResult Index()
+        {
+            var cart = GetSessionOrCookieCart();
+
+            var cvm = new CartViewModel
+            {
+                List = cart.List,
+                Subtotal = cart.Subtotal
+            };
+            return View(cvm);
+        }
+
         [HttpPost]
         public RedirectToActionResult Add(int id)
         {
@@ -32,7 +46,7 @@ namespace CodeCafe.Controllers
 
             if (product == null)    // error if book not found
             {
-                TempData["message"] = "Book not able to be added to cart.";
+                TempData["message"] = "Item not able to be added to cart.";
             }
             else
             {
