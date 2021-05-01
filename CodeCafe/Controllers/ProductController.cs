@@ -12,6 +12,9 @@ namespace CodeCafe.Controllers
         //Uses the CafeUnitOfWork class to get items from the database
         private CafeUnitOfWork productInfo { get; set; }
         public ProductController(CafeContext ctx) => productInfo = new CafeUnitOfWork(ctx);
+
+        public RedirectToActionResult Index() => RedirectToAction("List");
+
         [Route("Order")]
         public ViewResult List()
         {

@@ -10,22 +10,26 @@ namespace CodeCafe.Models.RepositoriesAndUnits
     {
         protected CafeContext context { get; set; }
         private DbSet<T> setDatabase { get; set; }
-
         public Repository(CafeContext ctx)
         {
             context = ctx;
             setDatabase = context.Set<T>();
         }
 
+        private int? count;
+
+        public int Count => count ?? setDatabase.Count();
+
         // used to query data and output later
         public virtual IEnumerable<T> List(Querying<T> options)
         {
-            IQueryable<T> query = setDatabase;
+            IQueryable<T> query = BuildQuery(options);
             return query.ToList();
         }
 
         // used to find/change/save data
         public virtual T Get(int id) => setDatabase.Find(id);
+        public virtual T Get(string id) => setDatabase.Find(id);
         public virtual T Get(Querying<T> options)
         {
             IQueryable<T> query = BuildQuery(options);
@@ -49,12 +53,19 @@ namespace CodeCafe.Models.RepositoriesAndUnits
                 {
                     query = query.Where(condition);
                 }
+                count = query.Count();
             }
             if (options.HasOrderBy)
             {
-                query = query.OrderBy(options.OrderBy);
+                if (options.OrderByDirection == "asc")
+                {
+                    query = query.OrderBy(options.OrderBy);
+                }
+                else
+                {
+                    query = query.OrderByDescending(options.OrderBy);
+                }
             }
-
             return query;
         }
     }

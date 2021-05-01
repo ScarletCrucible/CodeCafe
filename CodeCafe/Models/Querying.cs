@@ -11,6 +11,7 @@ namespace CodeCafe.Models
     {
         // used to sort data displayed 
         public Expression<Func<T, Object>> OrderBy { get; set; }
+        public string OrderByDirection { get; set; } = "asc";
         public WhereConditions<T> WhereConditions { get; set; }
         public Expression<Func<T, bool>> Where
         {

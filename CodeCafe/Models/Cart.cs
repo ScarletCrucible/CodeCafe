@@ -23,10 +23,6 @@ namespace CodeCafe.Models
 		private IRequestCookieCollection getCookies { get; set; }
 		private IResponseCookies giveCookies { get; set; }
 
-		//public properties/objects
-		public IEnumerable<CartItem> List => items; //Puts the CartItem objects into the List collection
-		public double Subtotal => items.Sum(s => s.Subtotal);   //Adds the subtotal per item in the cart
-
 		//Constructor that sets the private session/cookie properties. 
 		public Cart(HttpContext ctx)
 		{
@@ -49,25 +45,28 @@ namespace CodeCafe.Models
 			}
 		}
 
-		public void Edit(CartItem item)
-		{
-			var inCart = GetById(item.Product.ProductId);
-			if (inCart != null)
-			{
-				inCart.Quantity = item.Quantity;
-			}
-		}
-
 		public void Remove(CartItem item) => items.Remove(item);
 		public void Clear() => items.Clear();
 
 		public void Save()
 		{
-			session.SetInt32(CountKey, items.Count);    //Sets count for items in cart
-			giveCookies.SetInt32(CountKey, items.Count);    //Sets count in cookies
+			//Without this, cart would say 0 for count. 
+			if (items.Count == 0)
+			{
+				session.Remove(CartKey);
+				session.Remove(CountKey);
 
-			session.SetObject<List<CartItem>>(CartKey, items);  //Stores collection of the objects in List
-			giveCookies.SetObject<List<CartItemDTO>>(CartKey, items.ToDTO()); //Also stores in the ToDTO method to keep the users' cart stored over multiple visits
+				giveCookies.Delete(CartKey);
+				giveCookies.Delete(CountKey);
+			}
+			else
+			{
+				session.SetInt32(CountKey, items.Count);    //Sets count for items in cart
+				giveCookies.SetInt32(CountKey, items.Count);    //Sets count in cookies
+
+				session.SetObject<List<CartItem>>(CartKey, items);  //Stores collection of the objects in List
+				giveCookies.SetObject<List<CartItemDTO>>(CartKey, items.ToDTO()); //Also stores in the ToDTO method to keep the users' cart stored over multiple visits
+			}
 		}
 
 		//Loads the cart with the session state and/or cookie data. 
@@ -86,7 +85,7 @@ namespace CodeCafe.Models
 				{
 					var product = info.Get(new Querying<Product>
 					{
-						Value = "OrderItems.Product",
+						Value = "OrderItems.Flavor",
 						Where = p => p.ProductId == cartItem.ProductId
 					});
 					//If not null, a new Product object is created and passed to the ProductDTO
@@ -107,9 +106,17 @@ namespace CodeCafe.Models
 				Save();
 			}
 		}
+
+		//public properties/objects
+		public double Subtotal => items.Sum(s => s.Subtotal);   //Adds the subtotal per item in the cart
+
 		//Returns number of items in the cart using session state, and if it has to, from cookies
 		public int? Count => session.GetInt32(CountKey) ?? getCookies.GetInt32(CountKey);
+
+		public IEnumerable<CartItem> List => items; //Puts the CartItem objects into the List collection
+
 		//Gets CartItem whose id matches the argument id 
-		public CartItem GetById(int id) => items.FirstOrDefault(ci => ci.Product.ProductId == id);
+		public CartItem GetById(int id) =>
+			items.FirstOrDefault(ci => ci.Product.ProductId == id);
 	}
 }

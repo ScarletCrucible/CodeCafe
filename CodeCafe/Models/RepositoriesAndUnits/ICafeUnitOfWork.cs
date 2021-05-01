@@ -9,6 +9,7 @@ namespace CodeCafe.Models.Repository
 	public interface ICafeUnitOfWork
 	{
 		Repository<Product> Products { get; }
+		Repository<Flavor> Flavors { get; }
 		Repository<OrderItem> OrderItems { get; }
 
 		void Save();

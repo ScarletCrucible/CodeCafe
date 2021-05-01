@@ -10,19 +10,17 @@ namespace CodeCafe.Models.DTO
 		public int ProductId { get; set; }
 		public string ProductName { get; set; }
 		public double Price { get; set; }
-		public string Description { get; set; }
-		public string Image { get; set; }
-		public Dictionary<int, string> Items { get; set; }
+		public Dictionary<int, string> Flavors { get; set; }
 
 		public void Load(Product product)
 		{
 			ProductId = product.ProductId;
 			ProductName = product.ProductName;
 			Price = product.Price;
-			Items = new Dictionary<int, string>();
+			Flavors = new Dictionary<int, string>();
 			foreach (OrderItem oi in product.OrderItems)
 			{
-				Items.Add(oi.Product.ProductId, oi.Product.ProductName);
+				Flavors.Add(oi.Product.ProductId, oi.Flavor.FlavorName);
 			}
 		}
 	}

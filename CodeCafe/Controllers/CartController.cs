@@ -17,7 +17,7 @@ namespace CodeCafe.Controllers
         private Cart GetSessionOrCookieCart()
         {
             var cart = new Cart(HttpContext);
-            cart.Load((Repository<Product>)productInfo);
+            cart.Load(productInfo);
             return (cart);
         }
 
@@ -40,7 +40,7 @@ namespace CodeCafe.Controllers
             // gets the book from the database
             var product = productInfo.Get(new Querying<Product>
             {
-                Value = "OrderItems.Product",
+                Value = "OrderItems.Flavor",
                 Where = p => p.ProductId == id
             });
 
@@ -60,52 +60,25 @@ namespace CodeCafe.Controllers
                     Quantity = 1
                 };
 
-                TempData["message"] = "Added to cart!";
-
                 Cart cart = GetSessionOrCookieCart(); // get cart object
                 cart.Add(item); // adds item to session state
                 cart.Save();
+
+                TempData["message"] = "Added to cart!";
             }
             // redirects to index page of product controller
-            return RedirectToAction("List", "Product");
-        }
-
-        [Route("Cart/[action]")]
-        public IActionResult Edit(int id)
-        {
-            Cart cart = GetSessionOrCookieCart();   // get cart object
-            CartItem item = cart.GetById(id);   // check cart item for product id
-            if (item == null)   // error if not exist
-            {
-                TempData["message"] = "Unable to edit the item.";
-                return RedirectToAction("List", "Product");
-            }
-            else
-            {
-                return View(item);  // returns the searched for item
-            }
-        }
-        [HttpPost]
-        public RedirectToActionResult Edit(CartItem item)
-        {
-            TempData["message"] = "Item in cart has been updated";
-
-            Cart cart = GetSessionOrCookieCart();   // gets cart object
-            cart.Edit(item);    // edit item
-            cart.Save();
-
             return RedirectToAction("List", "Product");
         }
 
         [HttpPost]
         public RedirectToActionResult Remove(int id)
         {
-            TempData["message"] = "Item removed from cart";
-
             Cart cart = GetSessionOrCookieCart();
             CartItem item = cart.GetById(id);
             cart.Remove(item);  // removes item id from cart
             cart.Save();
+
+            TempData["message"] = "Item removed from cart";
 
             return RedirectToAction("List", "Product");
         }
@@ -113,17 +86,26 @@ namespace CodeCafe.Controllers
         [HttpPost]
         public RedirectToActionResult Clear()
         {
-            TempData["message"] = "Cart has been cleared";
-
             Cart cart = GetSessionOrCookieCart();
             cart.Clear();   // cleared cart after getting cart object
             cart.Save();
+
+            TempData["message"] = "Cart has been cleared";
 
             return RedirectToAction("List", "Product");
         }
 
         [Route("Checkout")]
         public ViewResult Checkout()
+        {
+            Cart cart = GetSessionOrCookieCart();
+            cart.Clear();
+            cart.Save();
+
+            return View();
+        }
+
+        public ViewResult ThankYou()
         {
             return View();
         }

@@ -10,10 +10,8 @@ namespace CodeCafe.Models.SessionState
 	//Ch08 Data Transfer
 	public static class SessionExtension
 	{
-		public static void SetObject<T>(this ISession session, string key, T value)
-		{
+		public static void SetObject<T>(this ISession session, string key, T value) =>
 			session.SetString(key, JsonConvert.SerializeObject(value));
-		}
 
 		public static T GetObject<T>(this ISession session, string key)
 		{

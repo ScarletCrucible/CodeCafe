@@ -11,12 +11,11 @@ namespace CodeCafe.Models.SeedData
 	{
 		public void Configure(EntityTypeBuilder<Product> entity)
 		{
-			//real seed data added later
 			entity.HasData(
-				new Product { ProductId = 1, ProductName = "Cappucino", Price = 2.99, Description = "Cappucino", Image = "logo.png" },
-				new Product { ProductId = 2, ProductName = "Mocha Frappe", Price = 2.99, Description = "Mocha Frappe", Image = "logo.png" },
-				new Product { ProductId = 3, ProductName = "Caramel Frappe", Price = 2.99, Description = "Caramel Frappe", Image = "logo.png" },
-				new Product { ProductId = 4, ProductName = "Black Coffee", Price = 1, Description = "Black Coffee", Image = "logo.png" }
+				new Product { ProductId = 1, ProductName = "Cappucino", Price = 2.99, Description = "Cappucino", Image = "/images/Cappuccino.jpg" },
+				new Product { ProductId = 2, ProductName = "Mocha Frappe", Price = 2.99, Description = "Mocha Frappe", Image = "/images/MochaFrappe.jpg" },
+				new Product { ProductId = 3, ProductName = "Caramel Frappe", Price = 2.99, Description = "Caramel Frappe", Image = "/images/CaramelFrappe.jpg" },
+				new Product { ProductId = 4, ProductName = "Black Coffee", Price = 1, Description = "Black Coffee", Image = "/images/BlackCoffee.jpg" }
 			);
 		}
 	}

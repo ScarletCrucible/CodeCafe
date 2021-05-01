@@ -12,10 +12,10 @@ namespace CodeCafe.Models.SeedData
 		public void Configure(EntityTypeBuilder<OrderItem> entity)
 		{
 			entity.HasData(
-				new OrderItem { ProductId = 1 },
-				new OrderItem { ProductId = 2 },
-				new OrderItem { ProductId = 3 },
-				new OrderItem { ProductId = 4 }
+				new OrderItem { ProductId = 1, FlavorId = 3 },
+				new OrderItem { ProductId = 2, FlavorId = 2 },
+				new OrderItem { ProductId = 3, FlavorId = 4 },
+				new OrderItem { ProductId = 4, FlavorId = 1 }
 			);
 		}
 	}

@@ -3,14 +3,60 @@
 	ViewData["Title"] = " | Cart";
 }
 
-<!DOCTYPE html>
+<h1 style="text-align: center;">Cart</h1>
 
-<html>
-<head>
-	<meta name="viewport" content="width=device-width" />
-	<title>Index</title>
-</head>
-<body>
-	<h1>Cart</h1>
-</body>
-</html>
+<form asp-action="Remove" method="post">
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>Drink</th>
+				<th>Flavor</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Subtotal</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (CartItem item in Model.List)
+			{
+				<tr>
+					<td>@item.Product.ProductName</td>
+					@foreach (var keyValuePair in item.Product.Flavors)
+					{
+						<td>@keyValuePair.Value</td>
+					}
+					<td>@item.Product.Price.ToString("c")</td>
+					<td>@item.Quantity</td>
+					<td>@item.Subtotal.ToString("c")</td>
+					<td>
+						<div class="float-right">
+							<button type="submit" name="id" value="@item.Product.ProductId"
+									class="btn btn-outline-secondary">
+								Remove
+							</button>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</form>
+
+<form asp-action="Clear" method="post">
+	<ul class="list-group mb-4">
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col">
+					Subtotal: @Model.Subtotal.ToString("c")
+				</div>
+				<div class="col">
+					<div class="float-right">
+						<a asp-action="Checkout" asp-controller="Cart" class="btn btn-outline-secondary">Checkout</a>
+						<button type="submit" class="btn btn-outline-secondary">Clear Cart</button>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+</form>

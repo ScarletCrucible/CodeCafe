@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeCafe.Migrations
 {
     [DbContext(typeof(CafeContext))]
-    [Migration("20210430053009_Initial")]
+    [Migration("20210501092009_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,31 +20,77 @@ namespace CodeCafe.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CodeCafe.Models.Flavor", b =>
+                {
+                    b.Property<int>("FlavorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FlavorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FlavorId");
+
+                    b.ToTable("Flavors");
+
+                    b.HasData(
+                        new
+                        {
+                            FlavorId = 1,
+                            FlavorName = "Bitter"
+                        },
+                        new
+                        {
+                            FlavorId = 2,
+                            FlavorName = "Sour"
+                        },
+                        new
+                        {
+                            FlavorId = 3,
+                            FlavorName = "Fruity"
+                        },
+                        new
+                        {
+                            FlavorId = 4,
+                            FlavorName = "Salty"
+                        });
+                });
+
             modelBuilder.Entity("CodeCafe.Models.OrderItem", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId");
+                    b.Property<int>("FlavorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "FlavorId");
+
+                    b.HasIndex("FlavorId");
 
                     b.ToTable("OrderItems");
 
                     b.HasData(
                         new
                         {
-                            ProductId = 1
+                            ProductId = 1,
+                            FlavorId = 3
                         },
                         new
                         {
-                            ProductId = 2
+                            ProductId = 2,
+                            FlavorId = 2
                         },
                         new
                         {
-                            ProductId = 3
+                            ProductId = 3,
+                            FlavorId = 4
                         },
                         new
                         {
-                            ProductId = 4
+                            ProductId = 4,
+                            FlavorId = 1
                         });
                 });
 
@@ -76,7 +122,7 @@ namespace CodeCafe.Migrations
                         {
                             ProductId = 1,
                             Description = "Cappucino",
-                            Image = "logo.png",
+                            Image = "/images/Cappuccino.jpg",
                             Price = 2.9900000000000002,
                             ProductName = "Cappucino"
                         },
@@ -84,7 +130,7 @@ namespace CodeCafe.Migrations
                         {
                             ProductId = 2,
                             Description = "Mocha Frappe",
-                            Image = "logo.png",
+                            Image = "/images/MochaFrappe.jpg",
                             Price = 2.9900000000000002,
                             ProductName = "Mocha Frappe"
                         },
@@ -92,7 +138,7 @@ namespace CodeCafe.Migrations
                         {
                             ProductId = 3,
                             Description = "Caramel Frappe",
-                            Image = "logo.png",
+                            Image = "/images/CaramelFrappe.jpg",
                             Price = 2.9900000000000002,
                             ProductName = "Caramel Frappe"
                         },
@@ -100,7 +146,7 @@ namespace CodeCafe.Migrations
                         {
                             ProductId = 4,
                             Description = "Black Coffee",
-                            Image = "logo.png",
+                            Image = "/images/BlackCoffee.jpg",
                             Price = 1.0,
                             ProductName = "Black Coffee"
                         });
@@ -108,13 +154,26 @@ namespace CodeCafe.Migrations
 
             modelBuilder.Entity("CodeCafe.Models.OrderItem", b =>
                 {
+                    b.HasOne("CodeCafe.Models.Flavor", "Flavor")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("FlavorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CodeCafe.Models.Product", "Product")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Flavor");
+
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CodeCafe.Models.Flavor", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("CodeCafe.Models.Product", b =>

@@ -10,7 +10,6 @@ namespace CodeCafe.Models.SessionState
 		public static string Slug(this string str)
 		{
 			var strbuild = new StringBuilder();
-
 			//Takes strings, replaces spaces with dashes and makes all letters lowercase.
 			foreach (char character in str)
 			{

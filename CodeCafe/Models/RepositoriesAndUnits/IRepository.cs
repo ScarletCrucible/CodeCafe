@@ -9,8 +9,11 @@ namespace CodeCafe.Models.RepositoriesAndUnits
     {
         IEnumerable<T> List(Querying<T> options);
 
+        int Count { get; }
+
         T Get(Querying<T> options);
         T Get(int id);
+        T Get(string id);
 
         void Insert(T entity);
         void Update(T entity);

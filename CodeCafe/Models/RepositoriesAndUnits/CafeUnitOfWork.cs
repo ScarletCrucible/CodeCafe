@@ -11,8 +11,6 @@ namespace CodeCafe.Models.Repository
 		private CafeContext contxt { get; set; }
 		public CafeUnitOfWork(CafeContext ctx) => contxt = ctx;
 
-		public void Save() => contxt.SaveChanges();
-
 		//Class Repository creation
 		private Repository<Product> productInfo;
 		public Repository<Product> Products
@@ -25,6 +23,20 @@ namespace CodeCafe.Models.Repository
 					productInfo = new Repository<Product>(contxt);
 				}
 				return productInfo;
+			}
+		}
+
+		private Repository<Flavor> flavorInfo;
+		public Repository<Flavor> Flavors
+		{
+			get
+			{
+				//If a repository doesn't exist for productInfo, then it creates one.
+				if (flavorInfo == null)
+				{
+					flavorInfo = new Repository<Flavor>(contxt);
+				}
+				return flavorInfo;
 			}
 		}
 
@@ -41,5 +53,6 @@ namespace CodeCafe.Models.Repository
 				return orderInfo;
 			}
 		}
+		public void Save() => contxt.SaveChanges();
 	}
 }

@@ -7,19 +7,19 @@
 
 <html>
 <body>
-	<h1>Menu</h1>
-	<div class="card-deck">
+	<h1 style="text-align: center;">Menu</h1>
+	<div class="card-deck" style="text-align: center;">
 		@foreach (Product product in Model.Products)
 		{
 			<form asp-action="Add" asp-controller="Cart" method="post">
-				<div class="card">
+				<div class="card" style="text-align: center;" >
 					<img class="card-img-top" />
 					<div class="card-body">
-						<img class="card-img-top" src="@product.Image" alt="Coffee" />
+						<img class="card-img-top" src="@product.Image" alt="Coffee"/>
 						<h5 class="card-title">@product.ProductName</h5>
 						<h6 class="card-header">$@product.Price</h6>
 						<p class="card-text">@product.Description</p>
-						<button type="submit" value="@product.ProductId" class="btn btn-outline-secondary">Add to Cart</button>
+						<button type="submit" name="id" value="@product.ProductId" class="btn btn-outline-secondary">Add to Cart</button>
 					</div>
 				</div>
 			</form>
