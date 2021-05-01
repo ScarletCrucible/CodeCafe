@@ -4,6 +4,10 @@
 	justify-content: center;
 	text-align: center;
 }
+.input-validation-error {
+	border: 2px solid red;
+	background-color: #faebd7;
+}
 
 /*.carousel-inner div img {
 	margin-left: auto;

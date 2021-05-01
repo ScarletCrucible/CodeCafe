@@ -1,85 +1,85 @@
 ﻿@model CodeCafe.Models.ViewModels.RegistrationViewModel
 
 @{
-	ViewData["Title"] = "Registration";
+    ViewData["Title"] = "Registration";
 }
 
 @section scripts {
-	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-	<script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js"></script>
 }
 
 
 <h1 style="text-align: center;">Place your order!</h1>
 <br />
 <form asp-action="Index" method="post" style="justify-content: center;">
-	<div class="form-group row">
-		<div class="col-sm-2"><label>Name:</label></div>
-		<div class="col-sm-4">
-			<input asp-for="Name" class="form-control" />
-		</div>
-		<div class="col">
-			<span asp-validation-for="Name" class="text-danger">
-			</span>
-		</div>
-	</div>
-	<div class="form-group row">
-		<div class="col-sm-2"><label>Email Address:</label></div>
-		<div class="col-sm-4">
-			<input asp-for="Email" class="form-control" />
-		</div>
-		<div class="col">
-			<span asp-validation-for="Email" class="text-danger">
-			</span>
-		</div>
-	</div>
-	<div class="form-group row">
-		<div class="col-sm-2"><label>Phone Number:</label></div>
-		<div class="col-sm-4">
-			<input asp-for="PhoneNumber" class="form-control" />
-		</div>
-		<div class="col">
-			<span asp-validation-for="PhoneNumber" class="text-danger">
-			</span>
-		</div>
-	</div>
-	<div class="form-group row">
-		<div class="col-sm-2"><label>Pick up time:</label></div>
-		<select asp-for="Hour" class="form-control col-sm-1">
-			<option></option>
-			<option>09</option>
-			<option>10</option>
-			<option>11</option>
-			<option>12</option>
-			<option>13</option>
-			<option>14</option>
-			<option>15</option>
-			<option>16</option>
-			<option>17</option>
-			<option>18</option>
-			<option>19</option>
-			<option>10</option>
-		</select>
-		<select asp-for="Minute" class="form-control col-sm-1">
-			<option></option>
-			<option>00</option>
-			<option>05</option>
-			<option>10</option>
-			<option>15</option>
-			<option>20</option>
-			<option>25</option>
-			<option>30</option>
-			<option>35</option>
-			<option>40</option>
-			<option>45</option>
-			<option>50</option>
-			<option>55</option>
-		</select>
-	</div>
-	<div class="row">
-		<div class="offset-2 col-sm-4">
-			<a asp-action="ThankYou" asp-controller="Cart" class="btn btn-outline-secondary">Submit</a>
-		</div>
-	</div>
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Name:</label></div>
+        <div class="col-sm-4">
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Name" class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Email Address:</label></div>
+        <div class="col-sm-4">
+            <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Email" class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Phone Number:</label></div>
+        <div class="col-sm-4">
+            <input asp-for="PhoneNumber" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="PhoneNumber" class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Pick up time:</label></div>
+        <select asp-for="Hour" class="form-control col-sm-1">
+            <option></option>
+            <option>09</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+            <option>18</option>
+            <option>19</option>
+            <option>10</option>
+        </select>
+        <select asp-for="Minute" class="form-control col-sm-1">
+            <option></option>
+            <option>00</option>
+            <option>05</option>
+            <option>10</option>
+            <option>15</option>
+            <option>20</option>
+            <option>25</option>
+            <option>30</option>
+            <option>35</option>
+            <option>40</option>
+            <option>45</option>
+            <option>50</option>
+            <option>55</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="offset-2 col-sm-4">
+            <button asp-action="ThankYou" asp-controller="Cart" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
 </form>
