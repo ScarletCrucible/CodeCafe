@@ -6,7 +6,6 @@
 
 <!DOCTYPE html>
 <style>
-
 	nav ul {
 		padding: 0;
 		display: inline-flex;
@@ -46,8 +45,8 @@
 					data-toggle="collapse" data-target="#navbarResponsive">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="#navbarResponsive">
-				<ul class="navbar-nav ml-auto">
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav">
 					<li class="nav-item active">
 						<a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
 							Home
@@ -73,5 +72,16 @@
 		</div>
 	</nav>
 	@RenderBody()
+	<!-- Footer -->
+	<footer>
+		<div class="container-fluid padding">
+			<div class="row text-center">
+				<div class="col-md-4">
+					<img src="~/images/logonotext.png" width="50" />
+					<p>© Code Cafe 2021</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
