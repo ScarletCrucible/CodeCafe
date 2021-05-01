@@ -13,9 +13,9 @@ namespace CodeCafe.Models.SeedData
 		{
 			entity.HasData(
 				new Flavor { FlavorId = 1, FlavorName = "Bitter" },
-				new Flavor { FlavorId = 2, FlavorName = "Sour" },
-				new Flavor { FlavorId = 3, FlavorName = "Fruity" },
-				new Flavor { FlavorId = 4, FlavorName = "Salty" }
+				new Flavor { FlavorId = 2, FlavorName = "Fruity" },
+				new Flavor { FlavorId = 3, FlavorName = "Salty" },
+				new Flavor { FlavorId = 4, FlavorName = "Sweet" }
 			);
 		}
 	}

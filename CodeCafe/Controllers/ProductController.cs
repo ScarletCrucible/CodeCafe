@@ -22,7 +22,7 @@ namespace CodeCafe.Controllers
             {
                 Products = productInfo.Products.List(new Querying<Product>
                 {
-                    OrderBy = p => p.ProductName
+                    OrderBy = p => p.ProductId
                 })
             };
             return View(plvm);
