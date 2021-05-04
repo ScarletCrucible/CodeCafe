@@ -37,14 +37,14 @@ namespace CodeCafe.Controllers
         [HttpPost]
         public RedirectToActionResult Add(int id)
         {
-            // gets the book from the database
+            // gets the product from the database
             var product = productInfo.Get(new Querying<Product>
             {
                 Value = "OrderItems.Flavor",
                 Where = p => p.ProductId == id
             });
 
-            if (product == null)    // error if book not found
+            if (product == null)    // error if product not found
             {
                 TempData["message"] = "Item not able to be added to cart.";
             }
